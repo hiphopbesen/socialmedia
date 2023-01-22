@@ -53,7 +53,7 @@ export default function Home() {
             {isLoading? <button aria-busy="true" type="submit">Login</button>:
             <button type="submit">Login</button>}
         </form>
-        <a href="#" role="button" class="secondary">Registrieren</a>
+        <a href="#" role="button" className="secondary">Registrieren</a>
     </>
   )
 }
