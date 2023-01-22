@@ -1,23 +1,40 @@
+'use client'
+
 import pb from './../../../lib/pocketbase.js'
 import Post from 'components/Post.js';
+import { useEffect, useState } from 'react';
 
-async function getuser(id) {
-    const records = await pb.collection("users").getOne(id, {
-      });
-    return records;
-}
-async function getposts(id) {
-    // fetch a paginated records list
-    const resultList = await pb.collection('posts').getList(1, 3, {
-        filter: `user = "${id}"`,
-        expand: 'user',
-        sort: '-created'
-    })
-    return resultList.items;
-}
-export default async function Component({ params }) {
-    const user = await getuser(params.id);
-    const posts = await getposts(params.id);
+
+
+export default function Component({ params }) {
+    const [user, setUser] = useState(null);
+    const [posts, setPosts] = useState(null);
+    useEffect(() => {
+        async function getuser(id) {
+            const records = await pb.collection("users").getOne(id, {
+              });
+            return records;
+        }
+        async function getposts(id) {
+            // fetch a paginated records list
+            const resultList = await pb.collection('posts').getList(1, 3, {
+                filter: `user = "${id}"`,
+                expand: 'user',
+                sort: '-created'
+            })
+            return resultList.items;
+        }
+        getposts(params.id).then((posts) => {
+            setPosts(posts)
+        })
+        getuser(params.id).then((user) => {
+            setUser(user)
+        })
+    }, [params.id])
+
+    if(!user){
+        return <div>404 - User not found</div>
+    }
     return (
         <>
             <article>

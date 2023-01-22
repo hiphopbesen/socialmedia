@@ -1,15 +1,29 @@
+'use client'
 import pb from './../../../lib/pocketbase.js'
 import Interactions from 'components/Interactions.js';
+import { useEffect, useState } from 'react';
 
-async function getposts(id) {
-    const records = await pb.collection("posts").getOne(id, {
-        expand: "user",
-      });
-    return records;
-}
 
-export default async function Component({ params }) {
-    const post = await getposts(params.id);
+
+export default function Component({ params }) {
+    const [post, setPost] = useState(null);
+    
+    useEffect(() => {
+        async function getposts(id) {
+            const records = await pb.collection("posts").getOne(id, {
+                expand: "user",
+              });
+            return records;
+        }
+        getposts(params.id).then((post) => {
+            setPost(post)
+        })
+    }, [params.id])
+
+
+    if(!post){
+        return <div>404 - Post not found</div>
+    }
     const date = new Date(post.created)
     const options = { year: 'numeric', month: 'long', day: 'numeric' }
     const published = date.toLocaleDateString('de-DE', options)
