@@ -12,7 +12,7 @@ export default function Component({ params }) {
         setLoading(true)
         async function getposts(id) {
             const records = await pb.collection("posts").getOne(id, {
-                expand: "user",
+                expand: "user, comments, comments.user",
               });
             return records;
         }
