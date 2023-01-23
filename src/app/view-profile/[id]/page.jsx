@@ -9,7 +9,9 @@ import { useEffect, useState } from 'react';
 export default function Component({ params }) {
     const [user, setUser] = useState(null);
     const [posts, setPosts] = useState(null);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
+        setLoading(true)
         async function getuser(id) {
             const records = await pb.collection("users").getOne(id, {
               });
@@ -29,9 +31,13 @@ export default function Component({ params }) {
         })
         getuser(params.id).then((user) => {
             setUser(user)
+            setLoading(false)
         })
     }, [params.id])
 
+    if(loading){
+        return <div aria-busy>Loading...</div>
+    }
     if(!user){
         return <div>404 - User not found</div>
     }

@@ -7,8 +7,9 @@ import { useEffect, useState } from 'react';
 
 export default function Component({ params }) {
     const [post, setPost] = useState(null);
-    
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
+        setLoading(true)
         async function getposts(id) {
             const records = await pb.collection("posts").getOne(id, {
                 expand: "user",
@@ -17,10 +18,16 @@ export default function Component({ params }) {
         }
         getposts(params.id).then((post) => {
             setPost(post)
+            setLoading(false)
+        }).catch((err) => {
+            setLoading(false)
         })
     }, [params.id])
 
 
+    if (loading){
+        return <div aria-busy>Loading...</div>
+    }
     if(!post){
         return <div>404 - Post not found</div>
     }
