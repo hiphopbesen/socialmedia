@@ -5,7 +5,9 @@ import Post from 'components/Post';
 
 export default  function Home() {
   const [posts, setPosts] = useState(null);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
+    setLoading(true)
     async function getposts() {
       const records = await pb.collection('posts').getFullList(5, {
         expand: 'user,likes,comments,comments.user',
@@ -15,10 +17,20 @@ export default  function Home() {
     }
     getposts().then((res) => {
       setPosts(res)
+      setLoading(false)
       console.log(res)
     })
   }, [])
-  //const users = await getusers()
+
+
+  if (loading) {
+    return (
+      <div className='container' aria-busy>
+        <img src='/icons/pepebongo.gif' />
+      </div>
+    )
+  }
+
   return (
     <>
       <hgroup>

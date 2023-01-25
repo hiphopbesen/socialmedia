@@ -4,6 +4,7 @@ import Interactions from 'components/Interactions.js';
 import { useEffect, useState } from 'react';
 
 
+import Loading from 'components/Loading.js';
 
 export default function Component({ params }) {
     const [post, setPost] = useState(null);
@@ -26,7 +27,9 @@ export default function Component({ params }) {
 
 
     if (loading){
-        return <div aria-busy>Loading...</div>
+        return (
+            <Loading/>
+        )
     }
     if(!post){
         return <div>404 - Post not found</div>

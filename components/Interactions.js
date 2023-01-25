@@ -104,7 +104,6 @@ export default function Interactions({ post }) {
                     </footer>
                 </article>
             </dialog>
-            <p role='button' onClick={() =>like()}>{likes.length} {liked && '👍' }  </p>
             {
                 comments?.map((comment) => {
                 let user = comment.expand.user
@@ -122,10 +121,13 @@ export default function Interactions({ post }) {
             }
             <hr />
             <textarea placeholder='Comment' id='commentinput' />
-            {sendComment ? <p aria-busy role="button">🛫</p>
-            :
-            <p onClick={() =>comment()} role="button" className="contrast">🛫</p>
-            }
+            <div className='grid'>
+                {sendComment ? <p aria-busy role="button">🛫</p>
+                :
+                <p onClick={() =>comment()} role="button" className="contrast">🛫comment</p>
+                }
+            <p role='button' onClick={() =>like()}>{likes.length}  {liked && <img className='like' alt='pepeyes' src='/icons/pepe_yes.png'></img> }  Like!</p>
+            </div>
         </div>
     )
 }

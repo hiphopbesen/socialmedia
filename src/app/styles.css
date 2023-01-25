@@ -17,3 +17,12 @@
     margin: 5px 0 5px 0;
     padding: 10px;
 }
+.like{
+    width: 30px;
+}
+.imagecontainer{
+    display: flex;
+    position: relative;
+    height: 70vh;
+    justify-content: center;
+}

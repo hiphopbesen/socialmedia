@@ -22,6 +22,9 @@ export default function Home() {
         .authWithPassword(username, password)
         .then((res) => {
           setIsLoading(false);
+        }).catch((err) => {
+          alert(err.message);
+          setIsLoading(false);
         });
     };
     function logout() {
@@ -53,7 +56,6 @@ export default function Home() {
             {isLoading? <button aria-busy="true" type="submit">Login</button>:
             <button type="submit">Login</button>}
         </form>
-        <a href="#" role="button" className="secondary">Registrieren</a>
     </>
   )
 }

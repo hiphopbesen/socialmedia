@@ -1,7 +1,6 @@
-export default function Loading() {
+import Loading from "components/Loading"
+export default function x() {
     return (
-        <article aria-busy="true">
-        
-        </article>
+        <Loading />
     )
 }
