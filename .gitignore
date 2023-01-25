@@ -8,6 +8,10 @@
 # testing
 /coverage
 
+#database
+/pb_data
+/pb_migrations
+
 # next.js
 /.next/
 /out/

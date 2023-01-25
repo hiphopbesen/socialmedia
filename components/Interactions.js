@@ -9,7 +9,8 @@ export default function Interactions({ post }) {
     const [sendComment, setSendComment] = useState(false)
     const [performedaction , setPerformedaction] = useState(false)
 
-    const isLoggedin = pb.authStore.isValid;
+    const isLoggedin = pb.authStore.isValid
+    const verified = pb.authStore.model.verified;
     const liked = isLoggedin? likes.includes(pb.authStore.model.id): false
 
     function like() {
