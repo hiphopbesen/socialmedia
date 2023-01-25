@@ -11,6 +11,8 @@
 #database
 /pb_data
 /pb_migrations
+pb_migrations
+pb_data
 
 # next.js
 /.next/
