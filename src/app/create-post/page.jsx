@@ -49,7 +49,7 @@ export default function Home() {
         console.log(res);
       });
     }
-    if(!user.verified){
+    if(user && !user.verified){
       return(
         <>
           <div>
