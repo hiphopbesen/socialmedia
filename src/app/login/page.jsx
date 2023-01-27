@@ -27,11 +27,25 @@ export default function Home() {
           setIsLoading(false);
         });
     };
+
+    const requestVerification = async (mail) => {
+      setIsLoading(true);
+      await pb.collection('users').requestVerification(mail).then((res) => {
+        alert('Verification mail sent, make sure to check your spam folder. currently have to log out and back in to see changes.');
+        setIsLoading(false);
+      }).catch((err) => {
+        alert(err.message);
+        setIsLoading(false);
+      });
+    };
+    
+
     function logout() {
       pb.authStore.clear();
       setDummy(dummy + 1);
     }
     if (isLoggedin){
+      console.log(user)
         return (
             <>
             <div className='grid' >
@@ -39,7 +53,7 @@ export default function Home() {
                 <div>
                 <hgroup>
                   <h1>{user.name}</h1>
-                  <h3>@{user.username}</h3>
+                  <h3>@{user.username} {user.verified? <img className='icon' src='/icons/verified.png'></img>: <button onClick={()=> requestVerification(user.email)}>verifizieren</button>}</h3>
                 </hgroup>
                 <p>{user.email}</p>
                 <button onClick={() => logout()}>Logout</button>

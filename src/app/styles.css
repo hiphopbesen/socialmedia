@@ -1,5 +1,9 @@
 @import '@picocss/pico/css/pico.min.css';
 
+.icon{
+    width: 20px;
+    height: 20px;
+}
 .profilepreview{
     border-radius: 100%;
     width: 40px;

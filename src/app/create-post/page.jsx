@@ -2,7 +2,6 @@
 import pb from 'src/lib/pocketbase.js'
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-
 import Post from 'components/Post';
 
 export default function Home() {
@@ -50,7 +49,19 @@ export default function Home() {
         console.log(res);
       });
     }
-
+    if(!user.verified){
+      return(
+        <>
+          <div>
+            <p>only verified users can post on this page.</p>
+            <Link role='button' href="/login">
+              Verify
+            </Link>
+          </div>
+        </>
+      )
+      
+    }
     if (erfolg){
       return (
         <>
@@ -79,7 +90,8 @@ export default function Home() {
               </div>
             </>
         )
-    }else{
+    }
+    else{
       return(
         <>
           <div>
